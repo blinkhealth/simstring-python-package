@@ -10,7 +10,7 @@ import os.path
 def get_rootdir():
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 def get_includedir():
-    return os.path.join(get_rootdir(), 'include')
+    return '.'
 
 def get_swigdir():
     return os.path.join(get_rootdir(), 'swig')
