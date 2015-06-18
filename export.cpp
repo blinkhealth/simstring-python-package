@@ -269,6 +269,10 @@ void retrieve_iconv(
     iconv_close(bwd);
 }
 
+#ifdef __APPLE__
+#include <cassert>
+#endif
+
 std::vector<std::string> reader::retrieve(const char *query)
 {
     reader_type& dbr = *reinterpret_cast<reader_type*>(m_dbr);
@@ -279,10 +283,26 @@ std::vector<std::string> reader::retrieve(const char *query)
         retrieve_thru(dbr, query, this->measure, this->threshold, std::back_inserter(ret));
         break;
     case 2:
+#ifdef __APPLE__
+#if __SIZEOF_WCHAR_T__ == 2
+        retrieve_iconv<wchar_t>(dbr, query, UTF16, this->measure, this->threshold, std::back_inserter(ret));
+#else
+assert(0);
+#endif
+#else
         retrieve_iconv<uint16_t>(dbr, query, UTF16, this->measure, this->threshold, std::back_inserter(ret));
+#endif
         break;
     case 4:
+#ifdef __APPLE__
+#if __SIZEOF_WCHAR_T__ == 4
+        retrieve_iconv<wchar_t>(dbr, query, UTF32, this->measure, this->threshold, std::back_inserter(ret));
+#else
+assert(0);
+#endif
+#else
         retrieve_iconv<uint32_t>(dbr, query, UTF32, this->measure, this->threshold, std::back_inserter(ret));
+#endif
         break;
     }
 
