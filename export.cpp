@@ -322,6 +322,8 @@ bool reader::check(const char *query)
         std::basic_string<wchar_t> qstr;
 #else
 assert(0);
+        // bogus declaration to keep compiler happy
+        std::basic_string<wchar_t> qstr;
 #endif
 #else
         std::basic_string<uint16_t> qstr;
@@ -336,6 +338,8 @@ assert(0);
         std::basic_string<wchar_t> qstr;
 #else
 assert(0);
+        // bogus declaration to keep compiler happy
+        std::basic_string<wchar_t> qstr;
 #endif
 #else
         std::basic_string<uint32_t> qstr;
