@@ -20,6 +20,12 @@ os.environ['CPP'] = 'g++'; os.environ['LDSHARED'] = 'g++'
 
 from distutils.core import setup, Extension
 
+import platform
+if platform.system() == 'Darwin':
+    libs = ['-liconv', '-lpython']
+else:
+    libs = []
+
 simstring_module = Extension(
     '_simstring',
     sources = [
@@ -27,7 +33,7 @@ simstring_module = Extension(
         'export_wrap.cpp',
         ],
     include_dirs=[get_includedir(),],
-    extra_link_args=['-shared'],
+    extra_link_args=['-shared'] + libs,
     language='c++',
     )
 
