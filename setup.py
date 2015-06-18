@@ -20,8 +20,7 @@ os.environ['CPP'] = 'g++'; os.environ['LDSHARED'] = 'g++'
 
 from distutils.core import setup, Extension
 
-import platform
-if platform.system() == 'Darwin':
+if sys.platform.startswith("darwin"):
     libs = ['-liconv', '-lpython']
 else:
     libs = []
