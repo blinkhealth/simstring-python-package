@@ -317,13 +317,29 @@ bool reader::check(const char *query)
         std::string qstr = query;
         return dbr.check(qstr, translate_measure(this->measure), this->threshold);
     } else if (dbr.char_size() == 2) {
+#ifdef __APPLE__
+#if __SIZEOF_WCHAR_T__ == 2
+        std::basic_string<wchar_t> qstr;
+#else
+assert(0);
+#endif
+#else
         std::basic_string<uint16_t> qstr;
+#endif
         iconv_t fwd = iconv_open(UTF16, "UTF-8");
         iconv_convert(fwd, std::string(query), qstr);
         iconv_close(fwd);
         return dbr.check(qstr, translate_measure(this->measure), this->threshold);
     } else if (dbr.char_size() == 4) {
+#ifdef __APPLE__
+#if __SIZEOF_WCHAR_T__ == 4
+        std::basic_string<wchar_t> qstr;
+#else
+assert(0);
+#endif
+#else
         std::basic_string<uint32_t> qstr;
+#endif
         iconv_t fwd = iconv_open(UTF32, "UTF-8");
         iconv_convert(fwd, std::string(query), qstr);
         iconv_close(fwd);
