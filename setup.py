@@ -15,8 +15,8 @@ def get_includedir():
 def get_swigdir():
     return os.path.join(get_rootdir(), 'swig')
 
-import os; os.environ['CC'] = 'g++'; os.environ['CXX'] = 'g++';
-os.environ['CPP'] = 'g++'; os.environ['LDSHARED'] = 'g++'
+#import os; os.environ['CC'] = 'g++'; os.environ['CXX'] = 'g++';
+#os.environ['CPP'] = 'g++'; os.environ['LDSHARED'] = 'g++'
 
 from distutils.core import setup, Extension
 
