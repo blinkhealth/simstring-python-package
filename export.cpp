@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <iconv.h>
-#include <simstring/simstring.h>
+#include "simstring/simstring.h"
 
 #include "export.h"
 
@@ -27,7 +27,7 @@ bool iconv_convert(iconv_t cd, const source_type& src, destination_type& dst)
 {
     typedef typename source_type::value_type source_char_type;
     typedef typename destination_type::value_type destination_char_type;
-    
+
     const char *inbuf = reinterpret_cast<const char *>(src.c_str());
     size_t inbytesleft = sizeof(source_char_type) * src.length();
     while (inbytesleft > 0) {
@@ -103,7 +103,7 @@ writer::~writer()
     if (m_unicode) {
         uwriter_type* dbw = reinterpret_cast<uwriter_type*>(m_dbw);
     ngram_generator_type* gen = reinterpret_cast<ngram_generator_type*>(m_gen);
-    
+
     dbw->close();
     if (dbw->fail()) {
         std::string message = dbw->error();
@@ -117,7 +117,7 @@ writer::~writer()
     } else {
         writer_type* dbw = reinterpret_cast<writer_type*>(m_dbw);
     ngram_generator_type* gen = reinterpret_cast<ngram_generator_type*>(m_gen);
-    
+
     dbw->close();
     if (dbw->fail()) {
         std::string message = dbw->error();
@@ -239,7 +239,7 @@ void retrieve_iconv(
     iconv_t fwd = iconv_open(encoding, "UTF-8");
     iconv_convert(fwd, query, qstr);
     iconv_close(fwd);
-    
+
     strings_type xstrs;
     switch (measure) {
     case exact:
@@ -312,7 +312,7 @@ assert(0);
 bool reader::check(const char *query)
 {
     reader_type& dbr = *reinterpret_cast<reader_type*>(m_dbr);
-    
+
     if (dbr.char_size() == 1) {
         std::string qstr = query;
         return dbr.check(qstr, translate_measure(this->measure), this->threshold);
@@ -349,7 +349,7 @@ assert(0);
         iconv_close(fwd);
         return dbr.check(qstr, translate_measure(this->measure), this->threshold);
     }
-    
+
     return false;
 }
 

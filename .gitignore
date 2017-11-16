@@ -1,2 +1,4 @@
 /build
 /dist
+.DS_Store
+blink_simstring.egg-info/
